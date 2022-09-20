@@ -1,28 +1,32 @@
-let nearlySortedArr = [1, 15, 5, 16, 27, 34]
-
-
 function bubbleSort(arr) {
-    const swap = (arr, idx1, idx2) => {
-        let temp = arr[idx1]
-        arr[idx1] = arr[idx2]
-        arr[idx2] = temp
+  const swap = (arr, idx1, idx2) => {
+    let temp = arr[idx1];
+    arr[idx1] = arr[idx2];
+    arr[idx2] = temp;
+  };
+
+  // if no swap happens, the array is fully sorted
+  // so, initialize a variable to check if items are swapped during the inner loop
+  let isSwapped;
+
+  // iterate over each item in the array
+  // start the index from the last item to track where the sorted items start
+  for (let i = arr.length - 1; i >= 0; i--) {
+    // before the inner loop, set isSwapped to false as currently there's no swap
+    isSwapped = false;
+
+    // j should be less than i because items after i should be sorted
+    for (let j = 0; j < i; j++) {
+      // if currently selected adjacent elements are out of order, swap them in place
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1);
+        // if a swap happens, set the isSwapped variable to true
+        isSwapped = true;
+      }
     }
-    
-    let noSwaps
-    for( let i = arr.length; i > 0; i--) {
-        noSwaps = true
-        for (let j = 0; j < i - 1; j++) {
-            console.log(arr, arr[j], arr[j+1])
-            if (arr[j] > arr[j+1]) {
-                swap(arr, j, j+1)
-                noSwaps = false
-            }
-        }
-        if (noSwaps) break
-    }
-    return arr
+    // if there's no swap in the inner loop, break the outer loop
+    if (!isSwapped) break;
+  }
+
+  return arr;
 }
-
-
-
-console.log(bubbleSort(nearlySortedArr))
