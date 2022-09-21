@@ -1,23 +1,25 @@
-const newArr = [5,7,11,2,22,3,1,80,30,45]
+const newArr = [5, 7, 11, 2, 22, 3, 1, 80, 30, 45];
 
 function selectionSort(arr) {
-    for (let i=0; i<arr.length; i++) {
-        let lowestNumIdx = i
-        for (let j=i+1; j<arr.length; j++) {
-            // console.log(arr[lowestNumIdx], arr[j])
-            if (arr[lowestNumIdx] > arr[j]) {
-                lowestNumIdx = j
-            }
-        }
-        if (i !== lowestNumIdx){
-            console.log(arr[i], arr[lowestNumIdx])
-            let temp = arr[i]
-            arr[i] = arr[lowestNumIdx]
-            arr[lowestNumIdx] = temp
-        }
-        // console.log(arr)
+  for (let i = 0; i < arr.length; i++) {
+    // initialize a variable to track at which index the minimum number is stored
+    let minNumIndex = i;
+
+    // loop over the unsorted part of the array
+    for (let j = i + 1; j < arr.length; j++) {
+      // if current element is smaller than the element at minNumIndex, make it the new minimum and update minNumIndex
+      if (arr[minNumIndex] > arr[j]) {
+        minNumIndex = j;
+      }
     }
-    return arr
-} 
-array = selectionSort(newArr)
-console.log(array)
+
+    // if the minimum number of the subarray is not at its correct index, swap it
+    if (i !== minNumIndex) {
+      let temp = arr[i];
+      arr[i] = arr[minNumIndex];
+      arr[minNumIndex] = temp;
+    }
+  }
+
+  return arr;
+}
