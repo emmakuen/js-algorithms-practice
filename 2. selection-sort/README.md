@@ -1,9 +1,9 @@
 # Selection Sort
 
 <small>**Time complexity:**
-<br/>worst O(n2) comparisons O(n) swaps
-<br/>average Θ(n2) comparisons Θ(n) swap
-<br/>best Ω(n2) comparisons, Ω(1) swaps</small><br/>
+<br/>- worst O(n2) comparisons O(n) swaps
+<br/>- average Θ(n2) comparisons Θ(n) swap
+<br/>- best Ω(n2) comparisons, Ω(1) swaps</small><br/>
 <small>**Space complexity:** O(1)</small>
 
 ## Implementation
