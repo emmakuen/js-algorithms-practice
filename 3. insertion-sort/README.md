@@ -19,6 +19,7 @@
 - Simple to implement
 - Efficient for small or largely sorted arrays (time complexity of O(kn) when each element in the arr is no more than k places away from its sorted position)
 - More efficient than selection sort and bubble sort
+- Works well with data coming in live (online algorithm)
 
 ## Disadvantages
 
