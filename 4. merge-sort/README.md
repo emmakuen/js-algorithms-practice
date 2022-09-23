@@ -27,9 +27,10 @@ const mergeSort = (arr) => {
   // return the array if its length is zero or one (this is the base case that should break the recursion)
   if (arr.length <= 1) return arr;
 
-  // recursively call mergeSort function on the left and right subarrays
-  const leftArr = mergeSort(arr.slice(0, arr.length / 2));
-  const rightArr = mergeSort(arr.slice(arr.length / 2));
+  const midpoint = Math.floor(arr.length / 2);
+  // recursively call current function on the left and right subarrays
+  const leftArr = mergeSort(arr.slice(0, midpoint));
+  const rightArr = mergeSort(arr.slice(midpoint));
 
   // after the recursive calls, merge sorted arrays and return it
   return merge(leftArr, rightArr);
