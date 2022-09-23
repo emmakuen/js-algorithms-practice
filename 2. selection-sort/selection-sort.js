@@ -1,5 +1,3 @@
-const newArr = [5, 7, 11, 2, 22, 3, 1, 80, 30, 45];
-
 function selectionSort(arr) {
   for (let i = 0; i < arr.length; i++) {
     // initialize a variable to track at which index the minimum number is stored
