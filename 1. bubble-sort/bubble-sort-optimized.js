@@ -1,8 +1,8 @@
 function bubbleSort(arr) {
-  const swap = (arr, idx1, idx2) => {
-    let temp = arr[idx1];
-    arr[idx1] = arr[idx2];
-    arr[idx2] = temp;
+  const swap = (arr, index1, index2) => {
+    let temp = arr[index1];
+    arr[index1] = arr[index2];
+    arr[index2] = temp;
   };
 
   // if no swap happens, the array is fully sorted
