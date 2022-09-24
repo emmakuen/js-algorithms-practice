@@ -1,7 +1,7 @@
 # Merge Sort
 
 <small>Time complexity: worst O(nlogn), average Θ(nlogn), best Ω(nlogn)</small><br/>
-<small>Space complexity: O(n) for arrays, O(1) for linked lists</small>
+<small>Space complexity: O(n) for arrays, O(logn) for linked lists</small>
 
 ## How It's Implemented
 
