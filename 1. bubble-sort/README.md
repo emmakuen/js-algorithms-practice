@@ -10,8 +10,9 @@
 
 - Easy to understand and implement
 - Data is sorted in place, so it doesn't require lots of additional memory
-- Data is ready for processing in memory after the sort
+- Performs faster than algorithms like quick sort when the list is mostly sorted
 
 ## Disadvantages
 
-- Bubble sort is slow compared to other sorting algorithms.
+- Bubble sort gets dramatically slower on larger lists
+- Among simple O(n2) sorting algorithms, other algorithms like insertion sort are more efficient
