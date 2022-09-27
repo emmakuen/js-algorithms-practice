@@ -17,7 +17,7 @@
 ## Disadvantages
 
 - Performs slower on small lists compared to quadratic algorithms
-- Requires quadratic time in the worst-case
+- Requires quadratic time in the worst-case (already sorted lists)
 
 ## JavaScript Implementation
 
