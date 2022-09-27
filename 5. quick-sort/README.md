@@ -17,7 +17,7 @@
 ## Disadvantages
 
 - Performs slower on small lists compared to quadratic algorithms
-- Requires quadratic time in the worst-case (already sorted lists)
+- Requires quadratic time in the worst-case (when repeatedly choosing maximum or minimum elements as the pivot)
 
 ## JavaScript Implementation
 
