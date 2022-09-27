@@ -12,14 +12,14 @@ const countDigits = (num) => {
 };
 
 const findMaxDigitSize = (nums) => {
-  let maxDigits = 0;
+  let maxDigitsSize = 0;
   for (let i = 0; i < nums.length; i++) {
     // count digits of each number and compare it to the current max digits
     // update max digits count if the current number has more digits
-    maxDigits = Math.max(maxDigits, countDigits(nums[i]));
+    maxDigitsSize = Math.max(maxDigitsSize, countDigits(nums[i]));
   }
 
-  return maxDigits;
+  return maxDigitsSize;
 };
 
 // --- RADIX SORT IMPLEMENTATION

@@ -31,40 +31,40 @@ const countDigits = (num) => {
   return Math.floor(Math.log10(Math.abs(num))) + 1;
 };
 
-const findMaxDigits = (nums) => {
-  let maxDigits = 0;
+const findMaxDigitSize = (nums) => {
+  let maxDigitsSize = 0;
   for (let i = 0; i < nums.length; i++) {
     // count digits of each number and compare it to the current max digits
     // update max digits count if the current number has more digits
-    maxDigits = Math.max(maxDigits, countDigits(nums[i]));
+    maxDigitsSize = Math.max(maxDigitsSize, countDigits(nums[i]));
   }
 
-  return maxDigits;
+  return maxDigitsSize;
 };
 
 // --- RADIX SORT IMPLEMENTATION
 const radixSort = (nums) => {
-  // find the maximum digits count
-  const maxDigits = findMaxDigits(nums);
+  // find the maximum digit size
+  const maxDigitSize = findMaxDigitSize(nums);
 
-  // iterate over all the digits of numbers
-  for (let kthDigit = 0; kthDigit < maxDigits; kthDigit++) {
+  // iterate over all the digits of nums
+  for (let kthDigit = 0; kthDigit < maxDigitSize; kthDigit++) {
     // on each iteration,
     // create a new array with empty buckets representing each digit (10 buckets for digits 0 - 9)
     let digitBuckets = Array.from({ length: 10 }, () => []);
 
-    // for each number in the array
+    // for each number in the nums array
     for (let i = 0; i < nums.length; i++) {
       const num = nums[i];
-      // find the kth digit
+      // find the kth digit from the num
       const digit = getDigit(num, kthDigit);
 
-      // from the digit buckets, find the bucket whose index is equal to the digit
-      // push the num to that bucket -- this would sort nums by the kth digit
+      // from the digit buckets, find the bucket whose index is equal to current digit
+      // push the num to that bucket -- this would sort nums based on the kth digit
       digitBuckets[digit].push(num);
     }
 
-    // after the inner loop finishes, replace nums array with a new array with the sorted numbers
+    // after the loop finishes, replace nums array with a new array with the sorted numbers
     nums = [].concat(...digitBuckets);
   }
 
