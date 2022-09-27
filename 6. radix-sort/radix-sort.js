@@ -11,7 +11,7 @@ const countDigits = (num) => {
   return Math.floor(Math.log10(Math.abs(num))) + 1;
 };
 
-const findMaxDigits = (nums) => {
+const findMaxDigitSize = (nums) => {
   let maxDigits = 0;
   for (let i = 0; i < nums.length; i++) {
     // count digits of each number and compare it to the current max digits
@@ -24,11 +24,11 @@ const findMaxDigits = (nums) => {
 
 // --- RADIX SORT IMPLEMENTATION
 const radixSort = (nums) => {
-  // find the maximum digits count
-  const maxDigits = findMaxDigits(nums);
+  // find the maximum digit size
+  const maxDigitSize = findMaxDigitSize(nums);
 
   // iterate over all the digits of nums
-  for (let kthDigit = 0; kthDigit < maxDigits; kthDigit++) {
+  for (let kthDigit = 0; kthDigit < maxDigitSize; kthDigit++) {
     // on each iteration,
     // create a new array with empty buckets representing each digit (10 buckets for digits 0 - 9)
     let digitBuckets = Array.from({ length: 10 }, () => []);
