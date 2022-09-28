@@ -17,7 +17,7 @@ class UndirectedGraph {
     const list2 = this.adjacencyList[v2];
 
     if (!list1.includes(v2)) list1.push(v2);
-    if (!list2.includes(v1)) list1.push(v1);
+    if (!list2.includes(v1)) list2.push(v1);
 
     return true;
   }
@@ -42,5 +42,52 @@ class UndirectedGraph {
 
     delete this.adjacencyList[v];
     return this.adjacencyList;
+  }
+
+  // get all vertex starting from the input vertex recursively using dfs
+  dfsTraverse(vertex) {
+    const visited = [];
+    const data = [];
+
+    const dfs = (vertex) => {
+      if (!vertex || !(vertex in this.adjacencyList)) return null;
+
+      visited.push(vertex);
+      data.push(vertex);
+
+      // visit children of one neighbor before moving on to the next neighbor -- this is dfs
+      this.adjacencyList[vertex].forEach((neighbor) => {
+        if (visited.includes(neighbor)) return;
+
+        return dfs(neighbor);
+      });
+    };
+
+    dfs(vertex);
+    return data;
+  }
+
+  bfsTraverse(startVertex) {
+    const queue = [startVertex];
+    const data = [];
+    const visited = [];
+
+    while (queue.length) {
+      const vertex = queue.shift();
+
+      if (!vertex || !(vertex in this.adjacencyList)) return null;
+
+      visited.push(vertex);
+      data.push(vertex);
+
+      this.adjacencyList[vertex].forEach((neighbor) => {
+        if (!visited.includes(neighbor)) {
+          visited.push(neighbor);
+          queue.push(neighbor);
+        }
+      });
+    }
+
+    return data;
   }
 }
