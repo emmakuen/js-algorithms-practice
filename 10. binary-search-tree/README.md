@@ -16,3 +16,8 @@
 ## Use Cases
 
 - File systems, natural language processing, Document Object Models of XML and HTML documents, etc.
+
+## BFS vs DFS
+
+- If the tree is wide, DFS would consume less space compared to BFS (because BFS would have lots of nodes in the queue)
+- if the tree is really deep, BFS would consume less space (because of DFS recursion)
