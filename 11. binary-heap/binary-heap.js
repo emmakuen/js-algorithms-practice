@@ -26,7 +26,7 @@ class MaxBinaryHeap {
 
   getParentIndex(childIndex) {
     const parentIndex = Math.floor((childIndex - 1) / 2);
-    if (parentIndex < 0 || parentIndex > this.values.length) return null;
+    if (parentIndex < 0 || parentIndex >= this.values.length) return null;
     return parentIndex;
   }
 
@@ -50,8 +50,7 @@ class MaxBinaryHeap {
   }
 
   extractMax() {
-    if (this.values.length === 0) return null;
-    if (this.values.length === 1) return this.values.pop();
+    if (this.values.length <= 1) return this.values.pop();
 
     // swap the first element with the last element and extract the max
     const max = this.values[0];
