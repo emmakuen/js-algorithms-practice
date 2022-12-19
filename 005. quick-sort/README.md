@@ -12,7 +12,6 @@
 
 - Doesn't require much additional memory as it sorts in place
 - Efficient on large lists
--
 
 ## Disadvantages
 
