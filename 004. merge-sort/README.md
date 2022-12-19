@@ -37,7 +37,7 @@ const mergeSort = (nums) => {
 };
 
 const merge = (arr1, arr2) => {
-  let mergedArr = [];
+  const mergedArr = [];
   let index1 = 0;
   let index2 = 0;
 
