@@ -65,6 +65,7 @@ class LinkedList {
     // if there's more than one node, the next node becomes head
     // if there's only one node, head becomes null as oldHead's next node would be null
     this.head = oldHead.next;
+    oldHead.next = null;
     // if there's only one node in the list, reset tail to null
     if (this.length === 1) {
       this.tail = null;
@@ -95,13 +96,11 @@ class LinkedList {
   get(index) {
     // if index is out of bound, return undefined
     if (index >= this.length || index < 0) return undefined;
-    let counter = index;
-    let currentNode = this.head;
 
+    let currentNode = this.head;
     // traverse through the nodes until we get to the node with given index
-    while (counter > 0) {
+    for (let i = 1; i <= index; i++) {
       currentNode = currentNode.next;
-      counter--;
     }
 
     return currentNode;
@@ -120,6 +119,7 @@ class LinkedList {
 
   // insert a new node with the given value at the index and return true if operation is successful
   insert(index, value) {
+    if (index > this.length || index < 0) return false;
     // if the node should be inserted at the beginning, use unshift method
     if (index === 0) {
       this.unshift(value);
@@ -128,9 +128,7 @@ class LinkedList {
       this.push(value);
     } else {
       // else, find the node after which the new node should be inserted
-      const previousNode = this.get(index);
-      // if no previous node found, return false
-      if (!previousNode) return false;
+      const previousNode = this.get(index - 1);
 
       // create a new node and point its next property to previous node's next node
       const node = new Node(value);
@@ -149,17 +147,14 @@ class LinkedList {
   */
   remove(index) {
     // return false if index is not valid
-    if (index >= this.length || index < 0) return false;
+    if (index >= this.length || index < 0) return undefined;
 
     // to remove the first node, use shift method
-    if (index === 0) {
-      return this.shift();
-    }
+    if (index === 0) return this.shift();
 
     // to remove the last node, use the pop method
-    if (index === this.length - 1) {
-      return this.pop();
-    }
+    if (index === this.length - 1) return this.pop();
+
     // else, find the previous and current nodes
     const previousNode = this.get(index - 1);
     const currentNode = previousNode.next;
@@ -167,6 +162,8 @@ class LinkedList {
     // pount the previous node's next property to the current node's next node,
     // which breaks its connection to the current node
     previousNode.next = currentNode.next;
+    // break the link of the removed node to its next node
+    currentNode.next = null;
     // decrement the length as we're removing a node
     this.length--;
 
@@ -176,10 +173,6 @@ class LinkedList {
 
   // reverse the linked list
   reverse() {
-    // if there's less than two items, reversal wouldn't cause any difference
-    // therefore, return the list as it is
-    if (this.length < 2) return this;
-
     // store the head node as current node
     let currentNode = this.head;
     // create a previous node variable which is initially null as head node has no previous element
