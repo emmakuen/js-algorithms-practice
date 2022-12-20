@@ -3,49 +3,9 @@ class MaxBinaryHeap {
     this.values = [];
   }
 
-  swap(index1, index2) {
-    [this.values[index1], this.values[index2]] = [
-      this.values[index2],
-      this.values[index1],
-    ];
-  }
-
-  getRightChildIndex(parentIndex) {
-    const rightChildIndex = parentIndex * 2 + 2;
-    if (this.values.length <= rightChildIndex) return null;
-
-    return rightChildIndex;
-  }
-
-  getLeftChildIndex(parentIndex) {
-    const leftChildIndex = parentIndex * 2 + 1;
-    if (this.values.length <= leftChildIndex) return null;
-
-    return leftChildIndex;
-  }
-
-  getParentIndex(childIndex) {
-    const parentIndex = Math.floor((childIndex - 1) / 2);
-    if (parentIndex < 0 || parentIndex >= this.values.length) return null;
-    return parentIndex;
-  }
-
   insert(value) {
     this.values.push(value);
-    return this.bubbleUp();
-  }
-
-  bubbleUp() {
-    let index = this.values.length - 1;
-    let value = this.values[index];
-    let parentIndex = this.getParentIndex(index);
-    // while current value is larger than its parent, bubble it up
-    while (this.values[parentIndex] < value) {
-      this.swap(parentIndex, index);
-      index = parentIndex;
-      parentIndex = this.getParentIndex(index);
-    }
-
+    this._bubbleUp();
     return this.values;
   }
 
@@ -53,43 +13,60 @@ class MaxBinaryHeap {
     if (this.values.length <= 1) return this.values.pop();
 
     // swap the first element with the last element and extract the max
-    const max = this.values[0];
-    const end = this.values.pop();
-    this.values[0] = end;
-    this.sinkDown();
+    this._swap(0, this.values.length - 1);
+    const max = this.values.pop();
+    this._sinkDown();
 
     return max;
   }
 
-  sinkDown() {
+  _swap(index1, index2) {
+    [this.values[index1], this.values[index2]] = [
+      this.values[index2],
+      this.values[index1],
+    ];
+  }
+
+  _bubbleUp() {
+    if (this.values.length < 2) return;
+
+    let index = this.values.length - 1;
+    let parentIndex = Math.floor((index - 1) / 2);
+
+    while (this.values[index] > this.values[parentIndex]) {
+      this._swap(index, parentIndex);
+      index = parentIndex;
+      parentIndex = Math.floor((index - 1) / 2);
+    }
+  }
+
+  _sinkDown() {
     // grap the new root and bubble it down to its correct position
-    let rootIndex = 0;
-    let rootValue = this.values[rootIndex];
-    let swapIndex = rootIndex;
+    let parentIndex = 0;
 
     while (true) {
-      let leftChildIndex = this.getLeftChildIndex(rootIndex);
-      if (!leftChildIndex) break;
+      let swapIndex = null;
+      let leftIndex = 2 * parentIndex + 1;
+      let rightIndex = 2 * parentIndex + 2;
 
-      if (this.values[leftChildIndex] > rootValue) {
-        swapIndex = leftChildIndex;
+      if (leftIndex >= this.values.length) break;
+
+      if (this.values[leftIndex] > this.values[parentIndex]) {
+        swapIndex = leftIndex;
       }
 
-      let rightChildIndex = this.getRightChildIndex(rootIndex);
       if (
-        rightChildIndex &&
-        this.values[rightChildIndex] > rootValue &&
-        this.values[rightChildIndex] > this.values[swapIndex]
+        rightIndex < this.values.length &&
+        this.values[rightIndex] > this.values[leftIndex] &&
+        this.values[rightIndex] > this.values[parentIndex]
       ) {
-        swapIndex = rightChildIndex;
+        swapIndex = rightIndex;
       }
 
-      if (swapIndex === rootIndex) break;
+      if (!swapIndex) break;
 
-      this.swap(rootIndex, swapIndex);
-      rootIndex = swapIndex;
+      this._swap(parentIndex, swapIndex);
+      parentIndex = swapIndex;
     }
-
-    return this.values;
   }
 }
