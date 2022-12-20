@@ -12,17 +12,17 @@ class BinarySearchTree {
   }
 
   _insertNode(parentNode, node) {
-    if (!parentNode || parentNode.value === node.value) return undefined;
+    if (!parentNode || parentNode.value === node.value) return this;
 
     if (parentNode.value > node.value) {
-      if (parentNode.left === null) {
+      if (!parentNode.left) {
         parentNode.left = node;
         return this;
       }
       return this._insertNode(parentNode.left, node);
     }
 
-    if (parentNode.right === null) {
+    if (!parentNode.right) {
       parentNode.right = node;
       return this;
     }
@@ -40,20 +40,18 @@ class BinarySearchTree {
     return this._insertNode(this.root, node);
   }
 
-  findNode(parentNode, value) {
-    if (!parentNode) return undefined;
+  _findNode(root, value) {
+    if (!root) return undefined;
 
-    if (parentNode.value === value) return parentNode;
-    if (parentNode.value > value) {
-      return this.findNode(parentNode.left, value);
+    if (root.value === value) return root;
+    if (root.value > value) {
+      return this._findNode(root.left, value);
     }
-    return this.findNode(parentNode.right, value);
+    return this._findNode(root.right, value);
   }
 
   find(value) {
-    if (!this.root) return undefined;
-
-    return this.findNode(this.root, value);
+    return this._findNode(this.root, value);
   }
 
   findMinNode() {
@@ -90,46 +88,36 @@ class BinarySearchTree {
   // PreOrder traverses from the root to the left subtree, and then to the right subtree (Root, Left, Right)
   // useful to get all the elements with the current structure of the tree
   // you can use the output to recreate the same tree
-  dfsPreOrder() {
-    const values = [];
-    function traverse(node) {
-      values.push(node.value);
+  dfsPreOrder(node = this.root, values = []) {
+    if (!node) return values;
 
-      if (node.left) traverse(node.left);
-      if (node.right) traverse(node.right);
-    }
-
-    traverse(this.root);
+    values.push(node.value);
+    this.dfsPreOrder(node.left, values);
+    this.dfsPreOrder(node.right, values);
 
     return values;
   }
 
   // PostOrder traverses from the left to the right and then to the root
   // you can delete the tree from leaf to root using this traversal
-  dfsPostOrder() {
-    const values = [];
-    function traverse(node) {
-      if (node.left) traverse(node.left);
-      if (node.right) traverse(node.right);
-      values.push(node.value);
-    }
+  dfsPostOrder(node = this.root, values = []) {
+    if (!node) return values;
 
-    traverse(this.root);
+    this.dfsPostOrder(node.left, values);
+    this.dfsPostOrder(node.right, values);
+    values.push(node.value);
 
     return values;
   }
 
   // InOrder traverses from the left to the root and then to the right
   // useful to get all the elements in their correct order
-  dfsInOrder() {
-    const values = [];
-    function traverse(node) {
-      if (node.left) traverse(node.left);
-      values.push(node.value);
-      if (node.right) traverse(node.right);
-    }
+  dfsInOrder(node = this.root, values = []) {
+    if (!node) return values;
 
-    traverse(this.root);
+    this.dfsInOrder(node.left, values);
+    values.push(node.value);
+    this.dfsInOrder(node.right, values);
 
     return values;
   }
