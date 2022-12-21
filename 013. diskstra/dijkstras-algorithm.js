@@ -14,22 +14,26 @@ class WeightedGraph {
 
   dijkstra(startV, endV) {
     const minDistanceFor = {};
-    const queue = new PriorityQueue();
+    const remainingVs = new PriorityQueue();
     const previousVFor = {};
 
+    // initialize min distance & previousV values for each vertex
     Object.keys(this.list).forEach((v) => {
       if (v === startV) {
         minDistanceFor[v] = 0;
-        queue.enqueue(v, 0);
+        remainingVs.enqueue(v, 0);
       } else {
         minDistanceFor[v] = Infinity;
-        queue.enqueue(v, Infinity);
+        remainingVs.enqueue(v, Infinity);
       }
       previousVFor[v] = null;
     });
 
-    while (queue.values.length > 0) {
-      let previousV = queue.dequeue().val;
+    // while there are unprocessed vertexes
+    while (remainingVs.values.length > 0) {
+      // remove the one with the smallest weight
+      let previousV = remainingVs.dequeue().val;
+      // if we reached the end, create the path array and return it
       if (previousV === endV) {
         const path = [];
         while (previousV) {
@@ -40,6 +44,7 @@ class WeightedGraph {
         return path.reverse();
       }
 
+      // else, iterate over the previous vertex's neighbors
       for (const { vertex, weight } of this.list[previousV]) {
         const distance = minDistanceFor[previousV] + weight;
         if (distance < minDistanceFor[vertex]) {
@@ -48,7 +53,7 @@ class WeightedGraph {
           // update the path with min distance
           previousVFor[vertex] = previousV;
           // enqueue the vertex in priority queue with the updated distance as priority
-          queue.enqueue(vertex, distance);
+          remainingVs.enqueue(vertex, distance);
         }
       }
     }
